@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="iPhoneのモデル番号から機種情報を検索するオフラインアプリ">
+    <title>りんごの品種</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Global Menu Bar -->
+    <div class="global-menu-bar">
+        <span class="apple-logo">🍎</span>
+        <span class="menu-app-name">りんごの品種</span>
+        <span class="menu-item">ファイル</span>
+        <span class="menu-item">編集</span>
+        <span class="menu-item">表示</span>
+        <span class="menu-item">移動</span>
+        <span class="menu-item">ウィンドウ</span>
+        <span class="menu-item">ヘルプ</span>
+        <span class="menu-clock" id="menuClock"></span>
+    </div>
+
+    <div class="app-container">
+        <!-- ヘッダー -->
+        <header class="app-header">
+            <div class="window-controls">
+                <span class="win-btn red"></span>
+                <span class="win-btn yellow"></span>
+                <span class="win-btn green"></span>
+            </div>
+            <h1 class="app-title">りんごの品種</h1>
+        </header>
+        <!-- メインコンテンツ -->
+        <main class="main-content">
+            <!-- 説明文 -->
+            <p class="description">iPhoneのモデル番号または名称を入力してください。</p>
+            <!-- 検索フォーム -->
+            <div class="search-form">
+                <!-- Device Tabs (Scrollable) -->
+                <div class="device-tabs-container">
+                    <div class="device-tabs" id="deviceTabs">
+                        <button class="device-btn active" data-device="iphone">iPhone</button>
+                        <button class="device-btn" data-device="ipad">iPad</button>
+                        <button class="device-btn" data-device="macbook_air">MacBook Air</button>
+                        <button class="device-btn" data-device="macbook_pro">MacBook Pro</button>
+                        <button class="device-btn" data-device="macbook">MacBook</button>
+                        <button class="device-btn" data-device="imac">iMac</button>
+                        <button class="device-btn" data-device="mac_mini">Mac mini</button>
+                        <button class="device-btn" data-device="mac_studio">Mac Studio</button>
+                        <button class="device-btn" data-device="mac_pro">Mac Pro</button>
+                        <button class="device-btn" data-device="apple_watch">Apple Watch</button>
+                        <button class="device-btn" data-device="airpods">AirPods</button>
+                        <button class="device-btn" data-device="apple_tv">Apple TV</button>
+                        <button class="device-btn" data-device="homepod">HomePod</button>
+                        <button class="device-btn" data-device="ipod">iPod</button>
+                    </div>
+                </div>
+
+                <!-- 統合検索ボックス -->
+                <div class="unified-search-box">
+                    <!-- セレクタ部分 -->
+                    <div class="search-type-selector" id="searchTypeSelector">
+                        <span class="selector-label" id="selectorLabel">モデル番号</span>
+                        <svg class="selector-arrow" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M7 10l5 5 5-5z" fill="currentColor" />
+                        </svg>
+                        <!-- ドロップダウンメニュー -->
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <div class="dropdown-item active" data-value="model">モデル番号</div>
+                            <div class="dropdown-item" data-value="name">名称</div>
+                        </div>
+                    </div>
+                    <!-- 入力フィールド -->
+                    <input type="text" id="searchInput" class="search-input" placeholder="タイプして検索..."
+                        autocomplete="off">
+                </div>
+
+                <!-- Dynamic Filters Container -->
+                <div id="dynamicFiltersContainer" class="dynamic-filters-container">
+                    <!-- Filters will be injected here by JS -->
+                </div>
+
+                <!-- Deprecated: Specific CPU Filter (iPhone only - moved to dynamic logic but keep placeholder for transition if needed, though dynamic is better) -->
+                <!-- Removed old static cpuFilterContainer to avoid confusion, new logic will handle iPhone CPU as a dynamic filter -->
+
+                <input type="hidden" id="searchType" value="model">
+                <button id="searchButton" class="search-button">
+                    調べる
+                </button>
+            </div>
+            <!-- 検索結果エリア -->
+            <div id="resultArea" class="result-area">
+                <!-- 結果がここに表示される -->
+            </div>
+        </main>
+    </div>
+    <script src="js/data/data.js"></script>
+    <script src="js/data/ipad_data.js"></script>
+    <script src="js/data/airpods_data.js"></script>
+    <script src="js/data/apple_tv_data.js"></script>
+    <script src="js/data/apple_watch_data.js"></script>
+    <script src="js/data/homepod_data.js"></script>
+    <script src="js/data/imac_data.js"></script>
+    <script src="js/data/ipod_data.js"></script>
+    <script src="js/data/mac_mini_data.js"></script>
+    <script src="js/data/mac_pro_data.js"></script>
+    <script src="js/data/mac_studio_data.js"></script>
+    <script src="js/data/macbook_air_data.js"></script>
+    <script src="js/data/macbook_pro_data.js"></script>
+    <script src="js/data/macbook_data.js"></script>
+    <script src="js/app.js" defer></script>
+</body>
+
+</html>
+
+</html>
