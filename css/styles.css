@@ -551,20 +551,60 @@ body {
 }
 
 /* Responsive */
+/* Responsive - スマホ最適化 */
 @media (max-width: 480px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+        /* 上から配置 */
+    }
+
+    .menu-item {
+        display: none;
+        /* メニューを隠してスッキリさせる */
+    }
+
     .app-container {
+        position: relative;
+        top: 22px;
+        /* メニューバーの高さ分 */
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: calc(100vh - 22px);
+        max-height: calc(100vh - 22px);
         border-radius: 0;
-        height: 100vh;
-        max-height: 100vh;
         border: none;
+    }
+
+    .main-content {
+        padding: 16px;
+    }
+
+    .unified-search-box {
+        flex-direction: column;
+    }
+
+    .search-type-selector {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .info-row {
         flex-direction: column;
         align-items: flex-start;
+        gap: 4px;
     }
 
     .info-value {
         text-align: left;
+        width: 100%;
+    }
+
+    .app-header {
+        cursor: default !important;
+        /* 「掴める」カーソルを無効化 */
+        touch-action: auto;
+        /* ブラウザ標準のスクロールを優先させる */
     }
 }
