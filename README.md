@@ -1,6 +1,6 @@
 # 情報の最終更新：2025年1月5日
 # りんごの品種　by Google Antigravity
-https://github.com/user-attachments/assets/812afc3a-5b9f-4ba7-84bc-c374a0db4d9c
+![image](https://github.com/user-attachments/assets/812afc3a-5b9f-4ba7-84bc-c374a0db4d9c)
 
 ご覧いただきありがとうございます。このウェブアプリは、すべてGoogleのAntigravityを用いて開発されました。保存されたデータを元に、モデル番号や名称、CPU、発売年から様々なApple製品を簡単に見分けることができるツールです。ユーザーが知っている情報を入力するとそれに基づき、該当する製品を検索します。元々オフラインのアプリとしての開発を予定していましたが、ウェブアプリとして公開いたしました。情報源はApple公式のサポートサイトからすべての製品の概要をまとめたものになります。
 
