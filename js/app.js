@@ -659,17 +659,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let firstDrag = true;
 
     function dragStart(e) {
-        // 【追加】スマホ(横幅480px以下)ならドラッグ機能を無効化する
-        if (window.innerWidth <= 480) return;
-
-        if (e.target.closest('.window-controls')) return; // ボタンをクリックした時はドラッグしない
+        if (e.target.closest('.window-controls')) return; // Don't drag if clicking buttons
 
         if (firstDrag) {
             const rect = container.getBoundingClientRect();
-            // 最初のドラッグ時に位置を固定値(px)に書き換える
+            // Set explicit pixel position matching current visual position
             container.style.left = rect.left + 'px';
             container.style.top = rect.top + 'px';
-            container.style.transform = 'none'; // 中央寄せ解除
+            container.style.transform = 'none'; // Remove centering transform
+            // Since we just set left/top to current visual, xOffset/yOffset relative to *container* logic below needs care.
+            // Let's use simpler logic: offset from mouse to top-left corner.
             firstDrag = false;
         }
 
@@ -685,7 +684,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function drag(e) {
         if (isDragging) {
-            // ドラッグ中はブラウザ標準のスクロールなどを防ぐ
             e.preventDefault();
             const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
             const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
