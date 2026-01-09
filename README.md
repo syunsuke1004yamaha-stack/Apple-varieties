@@ -9,7 +9,7 @@
 
 ## 使用方法
 
-https://syunsuke1004yamaha-stack.github.io/Apple-varieties/
+https://truesand-jr.github.io/Apple-varieties/
 
 上記リンクにアクセスし、ダウンロードすることなくご使用いただけます。
 ボタンにて該当製品を切り替え、ご存知の情報を入力し「調べる」ボタンを押下することで検索します。名称やCPUなど複数要素を選択した場合、その両方が当てはまるものを検索します。
