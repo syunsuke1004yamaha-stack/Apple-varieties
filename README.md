@@ -30,7 +30,7 @@ iPhoneのモデルを識別する - Apple サポート（日本）https://suppor
 
 ## 問い合わせ
 
-truesand.github@icloud.com
+https://forms.gle/vQHvZqyShyk6YKwU7
 
 問い合わせ用のメールアドレスとなります。エラー・改善案・セキュリティ面など様々なご意見をお聞かせください。
 AIにより生成されたため、ハルシネーション等が含まれる場合があります。遠慮なくご連絡ください。
