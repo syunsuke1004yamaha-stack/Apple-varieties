@@ -390,29 +390,34 @@ function performSearch() {
                 return false;
             });
         } else {
-            // Name search - 空白無視 + 単語順序無視
+            // Name search
             const normalizedInput = normalizeForNameSearch(input);
             results = results.filter(item => {
                 const normalizedName = normalizeForNameSearch(item['名称']);
 
-                // 1. シリーズ名の完全一致（空白無視）
+                // シリーズ名そのものか確認（例: "iPad Pro"）
                 if (item['シリーズ'] && normalizeForNameSearch(item['シリーズ']) === normalizedInput) {
                     return true;
                 }
 
-                // 2. 空白を無視した部分一致
+                // 部分一致（空白を無視しているので、より緩い条件）
                 if (normalizedName.includes(normalizedInput) || normalizedInput.includes(normalizedName)) {
                     return true;
                 }
 
-                // 3. 単語順序を無視したマッチング（元の入力で判定）
-                if (matchWordsInAnyOrder(item['名称'], input)) {
-                    return true;
-                }
+                // 単語順序を無視したマッチング
+                // 入力を単語に分割（空白除去前の状態で分割）
+                const inputWords = input.trim().toLowerCase()
+                    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+                    .split(/\s+/)
+                    .filter(w => w.length > 0);
 
-                // 4. シリーズ名でも単語順序無視マッチング
-                if (item['シリーズ'] && matchWordsInAnyOrder(item['シリーズ'], input)) {
-                    return true;
+                // すべての単語が製品名に含まれているかチェック
+                if (inputWords.length > 0) {
+                    const allWordsMatch = inputWords.every(word => normalizedName.includes(word));
+                    if (allWordsMatch) {
+                        return true;
+                    }
                 }
 
                 return false;
@@ -538,7 +543,7 @@ function normalizeModelNumber(input) {
 }
 
 /**
- * ヘルパー: 名称検索用の正規化（空白を完全に削除）
+ * ヘルパー: 名称検索用の正規化
  */
 function normalizeForNameSearch(input) {
     if (!input) return '';
@@ -546,24 +551,8 @@ function normalizeForNameSearch(input) {
     normalized = normalized.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-    // 空白を完全に削除
+    // 空白を完全に削除（より緩い検索のため）
     return normalized.replace(/\s+/g, '');
-}
-
-/**
- * ヘルパー: 単語分割して順序を無視したマッチング
- */
-function matchWordsInAnyOrder(text, query) {
-    if (!text || !query) return false;
-
-    // 空白で分割して単語リストを作成
-    const textWords = text.toLowerCase().split(/\s+/).filter(w => w.length > 0);
-    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
-
-    // クエリの各単語がテキストのいずれかの単語に含まれているかチェック
-    return queryWords.every(qWord =>
-        textWords.some(tWord => tWord.includes(qWord) || qWord.includes(tWord))
-    );
 }
 
 /**
