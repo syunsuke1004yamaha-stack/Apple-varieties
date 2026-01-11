@@ -646,6 +646,17 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.app-container');
     const header = document.querySelector('.app-header');
+
+    // Check if mobile (matches media query)
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    // Don't initialize drag on mobile
+    if (isMobile()) {
+        return;
+    }
+
     let isDragging = false;
     let currentX;
     let currentY;
