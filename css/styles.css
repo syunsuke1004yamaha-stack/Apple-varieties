@@ -568,3 +568,61 @@ body {
         text-align: left;
     }
 }
+
+/* Mobile Layout - Smartphone Portrait */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+
+    /* Hide menu items except logo, app name, and clock */
+    .menu-item {
+        display: none;
+    }
+
+    /* Adjust menu bar spacing for mobile */
+    .menu-app-name {
+        margin-left: 8px;
+    }
+
+    /* Window fills available space */
+    .app-container {
+        position: fixed;
+        top: 22px;
+        /* Below menu bar */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        height: calc(100vh - 22px);
+        border-radius: 0;
+        transform: none;
+        margin: 0;
+    }
+
+    /* Disable dragging on mobile */
+    .app-header {
+        cursor: default;
+        user-select: auto;
+        -webkit-user-select: auto;
+    }
+
+    .app-header:active {
+        cursor: default;
+    }
+
+    /* Adjust main content for mobile */
+    .main-content {
+        padding: 16px;
+    }
+
+    /* Make tabs scrollable on small screens */
+    .device-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
