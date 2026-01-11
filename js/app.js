@@ -390,18 +390,32 @@ function performSearch() {
                 return false;
             });
         } else {
-            // Name search
+            // Name search - 空白無視 + 単語順序無視
             const normalizedInput = normalizeForNameSearch(input);
             results = results.filter(item => {
                 const normalizedName = normalizeForNameSearch(item['名称']);
 
-                // シリーズ名そのものか確認（例: "iPad Pro"）
+                // 1. シリーズ名の完全一致（空白無視）
                 if (item['シリーズ'] && normalizeForNameSearch(item['シリーズ']) === normalizedInput) {
                     return true;
                 }
 
-                // 部分一致
-                return normalizedName.includes(normalizedInput) || normalizedInput.includes(normalizedName);
+                // 2. 空白を無視した部分一致
+                if (normalizedName.includes(normalizedInput) || normalizedInput.includes(normalizedName)) {
+                    return true;
+                }
+
+                // 3. 単語順序を無視したマッチング（元の入力で判定）
+                if (matchWordsInAnyOrder(item['名称'], input)) {
+                    return true;
+                }
+
+                // 4. シリーズ名でも単語順序無視マッチング
+                if (item['シリーズ'] && matchWordsInAnyOrder(item['シリーズ'], input)) {
+                    return true;
+                }
+
+                return false;
             });
         }
     }
@@ -524,7 +538,7 @@ function normalizeModelNumber(input) {
 }
 
 /**
- * ヘルパー: 名称検索用の正規化
+ * ヘルパー: 名称検索用の正規化（空白を完全に削除）
  */
 function normalizeForNameSearch(input) {
     if (!input) return '';
@@ -532,9 +546,24 @@ function normalizeForNameSearch(input) {
     normalized = normalized.replace(/[Ａ-Ｚａ-ｚ０-９]/g, (s) => {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-    // 空白削除して比較する場合もあるが、今回は"Series 9"などを区別したいので空白は残す（トリムのみ）
-    // もしくは単語間の空白を1つに統一
-    return normalized.replace(/\s+/g, ' ');
+    // 空白を完全に削除
+    return normalized.replace(/\s+/g, '');
+}
+
+/**
+ * ヘルパー: 単語分割して順序を無視したマッチング
+ */
+function matchWordsInAnyOrder(text, query) {
+    if (!text || !query) return false;
+
+    // 空白で分割して単語リストを作成
+    const textWords = text.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+
+    // クエリの各単語がテキストのいずれかの単語に含まれているかチェック
+    return queryWords.every(qWord =>
+        textWords.some(tWord => tWord.includes(qWord) || qWord.includes(tWord))
+    );
 }
 
 /**
